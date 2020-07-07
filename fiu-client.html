@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#518afc">
+    <title>FIU - Client</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./assets/css/fiu-style.css">
+</head>
+<body>
+    <main class="fiu-app">
+        <section class="container">
+            <div class="">
+                <h4 class="title">Personal Loan Application</h4>
+                <div class="fiu-alert" style="display: none;" >
+                    <div class="alert alert-primary my-alert" role="alert"></div>
+                    <div class="success-notification" style="display: none;">
+                        <div class="col-md-12" style="overflow: hidden;">
+                            <p>We were able to successfully gather your data.</p>
+                            <p><a href="#">Congratulations! Your loan has been approved.</a></p>
+                            <p>Our representative will get in touch with you for document collection.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- location url have to change to prod server before deploying -->
+                <iframe id="fiu-adaptor-frame" src="https://fiuconnect.finbit.io/web/index.html"></iframe>
+            </div>
+        </section>
+    </main>
+
+    <script src="assets/js/jquery-3.5.1.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script>
+        // change to prod location url before delploy
+        let locationurl = window.location.origin; // current window url to receive the JS postMessage from FIU adapter. 
+        $(document).ready(function(){
+            var params = new URLSearchParams(window.location.search);
+            let apikey = null;
+            console.log('api', params.get('apikey'));
+            if(params.has('apikey') && params.get('apikey') !== null){
+                apikey = params.get('apikey');
+            }
+            let consentdetail = {
+                "FIDataRange": {
+                    "from": "2020-03-01T11:39:57.153Z",
+                    "to": "2020-06-30T11:39:57.153Z"
+                }
+            };
+            consentdetail = JSON.stringify(consentdetail);
+            
+            let queryParams = '?locationurl='+locationurl+'&consentdetail='+consentdetail;
+            if(apikey){
+                queryParams = queryParams+'&apikey='+apikey;
+            }
+            var src = document.querySelector('#fiu-adaptor-frame').getAttribute('src');
+            document.querySelector('#fiu-adaptor-frame').setAttribute('src',src+queryParams);
+        });
+
+        // Customize AA-client application
+        $("#fiu-adaptor-frame").on("load", function() {
+            let css = {
+                theme: '<style>.static-background{background-color: #fff;}</style>'
+            };
+            var fiu_adapter = document.getElementById('fiu-adaptor-frame').contentWindow;
+            setTimeout(function(){
+                fiu_adapter.postMessage(css, locationurl);
+            }, 1000);
+        });
+        
+        window.addEventListener("message", function(event) {
+            if(event.data && event.data != '' && event.data.fiuConsentStatus){ // listen for fiu consent status
+                $('.my-alert').text(event.data.message);
+                $('#fiu-adaptor-frame').hide();
+                $('.fiu-alert').fadeIn();
+                console.log('FIU notification', event.data);
+                if(event.data.fiuConsentStatus === "ACTIVE"){
+                    $('.success-notification').slideDown('fast');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

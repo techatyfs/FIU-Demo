@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#518afc">
+    <title>FIU - Apply loan</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./assets/css/fiu-style.css">
+</head>
+<body>
+
+    <main class="fiu-app">
+        <section class="container">
+            <div class="clearfix">
+                <h4 class="title">Personal Loan Application</h4>
+
+                <form class="fiu-loan-form" onsubmit="validateForm(event)">
+                    <h4>How much do you need?</h4>
+                    <div class="enterAmount-wrapper form-group">
+                        <span>Loan amount:</span> 
+                        <span class="border-bottom">&#8377; <input onkeyup="getAmount(event, 'INPUT')" type="viewLoanAmount" class="enterAmount" name="viewLoanAmount" id="viewLoanAmount" aria-describedby="emailHelp" value="25000"></span>
+                        
+                    </div>
+                    <div class="form-group">
+                        <input type="range" oninput="getAmount(event, 'DRAG')" step="25000" class="form-control-range" name="loanAmount" value="50000" min="25000" max="5000000">
+                        <small id="loanAmountHelp" class="form-text text-muted">Min 25k - 50L.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="terms">Term (Months)</label>
+                        <div class="my-checkbox">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="term" id="inlineRadio1" value="12">
+                                <label class="form-check-label" for="inlineRadio1">12</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="term" id="inlineRadio2" value="24">
+                                <label class="form-check-label" for="inlineRadio2">24</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="term" id="inlineRadio3" value="36">
+                                <label class="form-check-label" for="inlineRadio3">36</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="term" id="inlineRadio4" value="48">
+                                <label class="form-check-label" for="inlineRadio4">48</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <small id="loanAmountHelp" class="form-text text-muted">Flat Interest Rate 14.12% p.a. and <b>Processing fee 0%</b></small>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                            <label class="form-check-label" for="defaultCheck1">
+                              Please click checkbox to submit the <a href="#">Loan Declaration</a>
+                            </label>
+                          </div>
+                    </div>
+
+                    <a href="./fiu-client.html" class="btn btn-primary">PROCEED TO LINK ACCOUNT</a>
+                </form>
+            </div>
+        </section>
+    </main>
+    
+    <script src="assets/js/jquery-3.5.1.js"></script>
+    <script>
+        var amount = '50000';
+        var updateLoanAmount = function (value, type){
+            if(type === "INPUT"){
+                document.querySelector('[name="loanAmount"]').value = value;
+            }
+            else{
+                document.querySelector('[name="viewLoanAmount"]').value = value;
+            }
+        }
+        $(document).ready(function(){
+            var loanAmount = $('[name="loanAmount"]').val();
+        });
+
+        function getAmount(event, type){
+            updateLoanAmount(event.target.value, type);
+        }
+        function validateForm(event){
+            event.preventDefault();
+            // add validation here for input fileds
+        }
+    </script>
+</body>
+</html>
