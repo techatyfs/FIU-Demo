@@ -23,7 +23,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- location url have to change to prod server before deploying -->
+                <!-- Integrated FIU-adapter -->
                 <iframe id="fiu-adaptor-frame" src="https://fiuconnect.finbit.io/web/index.html"></iframe>
             </div>
         </section>
@@ -32,7 +32,6 @@
     <script src="assets/js/jquery-3.5.1.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script>
-        // change to prod location url before delploy
         let locationurl = window.location.origin; // current window url to receive the JS postMessage from FIU adapter. 
         $(document).ready(function(){
             var params = new URLSearchParams(window.location.search);
