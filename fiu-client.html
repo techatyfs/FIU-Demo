@@ -32,7 +32,10 @@
     <script src="assets/js/jquery-3.5.1.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script>
-        let locationurl = window.location.origin; // current window url to receive the JS postMessage from FIU adapter. 
+        /* locationurl = This is required to get postMessage events. It will be your FIU url.(ex: http://<yourdomainname>.com)
+        *  apikey= This value will provided by team during onboarding
+        */
+        let locationurl = window.location.origin; 
         $(document).ready(function(){
             var params = new URLSearchParams(window.location.search);
             let apikey = null;
@@ -40,6 +43,11 @@
             if(params.has('apikey') && params.get('apikey') !== null){
                 apikey = params.get('apikey');
             }
+
+            /*
+            * FIU can override default consent details here. 
+            * To know the consent detail parameters check here - https://www.yodleefinsoft.com/
+            */
             let consentdetail = {
                 "FIDataRange": {
                     "from": "2020-03-01T11:39:57.153Z",
