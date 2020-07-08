@@ -1,0 +1,71 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.fiu-app{
+    background-color: #f5f5f5;
+    min-height: 100vh;
+}
+
+h2{
+    padding-top: 10px;
+}
+
+.fiu-alert{
+    background-color: #fff;
+}
+
+#fiu-adaptor-frame{
+    border: none;
+    width: 100%;
+    min-height: 88vh;
+    display: block;
+    line-height:0px;
+    margin: 0;
+    padding: 0;
+}
+
+.title{
+    margin-bottom: 20px;
+    margin-top: 0;
+    padding: 15px;
+    border-bottom: 1px solid #d2d2d2;
+    background-color: #fff;
+}
+
+.fiu-loan-form{
+    padding: 20px;
+    background-color: #fff;
+}
+
+.fiu-loan-form .form-group{
+    margin-bottom: 36px;
+}
+
+.enterAmount-wrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.enterAmount:focus,
+.enterAmount:hover{
+    outline: none;
+}
+
+.enterAmount{
+    border: none;
+    background-color: transparent;
+    max-width: 95px;
+}
+
+.border-bottom{
+    border-bottom: 1px solid #d2d2d2;
+}
+
+.my-checkbox > div{
+    /* border: 1px solid #d2d2d2; */
+    margin-right: 25px;
+}
